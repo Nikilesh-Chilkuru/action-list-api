@@ -12,7 +12,7 @@ import com.actionlistapi.pojo.ProcessInstanceStatus;
 import com.actionlistapi.pojo.ProcessType;
 import com.actionlistapi.pojo._Links;
 
-@Entity(name="actionrequest")
+@Entity
 public class ActionRequest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class ActionRequest {
 
 	private String delegator;
 	
-	private String group;
+	private String group_;
 	
 //	private ArrayList<String> routeNodes;
 	
@@ -99,11 +99,11 @@ public class ActionRequest {
 	}
 
 	public String getGroup() {
-		return group;
+		return group_;
 	}
 
-	public void setGroup(String group) {
-		this.group = group;
+	public void setGroup(String group_) {
+		this.group_ = group_;
 	}
 
 //	public ArrayList<String> getRouteNodes() {

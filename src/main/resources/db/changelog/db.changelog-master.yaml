@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: Stephen
+      author: sa
       changes:
         - createTable:
             tableName: actionrequest
@@ -28,7 +28,7 @@ databaseChangeLog:
                   type: varchar(100)
 
               - column:
-                  name: group
+                  name: group_
                   type: varchar(100)
 
               - column:
