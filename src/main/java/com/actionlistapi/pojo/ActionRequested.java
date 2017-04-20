@@ -4,6 +4,11 @@ public class ActionRequested {
 
 	private String code;
 	private String label;
+	
+	public ActionRequested(String code, String label){
+		this.code = code;
+		this.label = label;
+	}
 	public String getCode() {
 		return code;
 	}

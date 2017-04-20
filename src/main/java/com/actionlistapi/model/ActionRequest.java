@@ -1,21 +1,26 @@
 package com.actionlistapi.model;
 
-import java.util.ArrayList;
-
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import com.actionlistapi.pojo.ActionRequested;
 import com.actionlistapi.pojo.ProcessInstanceStatus;
 import com.actionlistapi.pojo.ProcessType;
 import com.actionlistapi.pojo._Links;
+import com.actionlistapi.services.ActionRequestedConverter;
+import com.actionlistapi.services.ProcessInstanceStatusConverter;
 
 @Entity
 public class ActionRequest {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="id_seq")
+	@SequenceGenerator(name="id_seq",sequenceName="id_seq",allocationSize=1)
 	private long id;
 	
 	private String processInstanceId;
@@ -24,9 +29,11 @@ public class ActionRequest {
 	
 	private String title;
 	
-//	private ProcessInstanceStatus processInstanceStatus;
+	@Convert(converter = ProcessInstanceStatusConverter.class)
+	private ProcessInstanceStatus processInstanceStatus;
 	
-//	private ActionRequested actionRequested;
+	@Convert(converter = ActionRequestedConverter.class)
+	private ActionRequested actionRequested;
 	
 	private String initiator;
 
@@ -34,7 +41,7 @@ public class ActionRequest {
 	
 	private String group_;
 	
-//	private ArrayList<String> routeNodes;
+	private String[] routeNodes;
 	
 	private String lastApprovedDate;
 	
@@ -66,21 +73,21 @@ public class ActionRequest {
 		this.title = title;
 	}
 
-//	public ProcessInstanceStatus getProcessInstanceStatus() {
-//		return processInstanceStatus;
-//	}
-//
-//	public void setProcessInstanceStatus(ProcessInstanceStatus processInstanceStatus) {
-//		this.processInstanceStatus = processInstanceStatus;
-//	}
-//
-//	public ActionRequested getActionRequested() {
-//		return actionRequested;
-//	}
-//
-//	public void setActionRequested(ActionRequested actionRequested) {
-//		this.actionRequested = actionRequested;
-//	}
+	public ProcessInstanceStatus getProcessInstanceStatus() {
+		return processInstanceStatus;
+	}
+
+	public void setProcessInstanceStatus(ProcessInstanceStatus processInstanceStatus) {
+		this.processInstanceStatus = processInstanceStatus;
+	}
+
+	public ActionRequested getActionRequested() {
+		return actionRequested;
+	}
+
+	public void setActionRequested(ActionRequested actionRequested) {
+		this.actionRequested = actionRequested;
+	}
 
 	public String getInitiator() {
 		return initiator;
@@ -106,13 +113,13 @@ public class ActionRequest {
 		this.group_ = group_;
 	}
 
-//	public ArrayList<String> getRouteNodes() {
-//		return routeNodes;
-//	}
-//
-//	public void setRouteNodes(ArrayList<String> routeNodes) {
-//		this.routeNodes = routeNodes;
-//	}
+	public String[] getRouteNodes() {
+		return routeNodes;
+	}
+
+	public void setRouteNodes(String[] routeNodes) {
+		this.routeNodes = routeNodes;
+	}
 
 	public String getLastApprovedDate() {
 		return lastApprovedDate;
@@ -136,10 +143,5 @@ public class ActionRequest {
 //
 //	public void set_links(_Links _links) {
 //		this._links = _links;
-//	}
-//	
-	
-	
-	
-	
+//	}	
 }

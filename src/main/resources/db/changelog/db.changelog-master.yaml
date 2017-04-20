@@ -3,8 +3,19 @@ databaseChangeLog:
       id: 1
       author: sa
       changes:
+        - createSequence:
+            sequenceName: id_seq
+            incrementBy: 1
+            minValue: 1
+            maxValue: 9223372036854775807
+            startValue: 1
+ 
+  - changeSet:
+      id: 2
+      author: sa
+      changes:
         - createTable:
-            tableName: actionrequest
+            tableName: ACTION_REQUEST
             columns:
               - column:
                   name: id
@@ -12,29 +23,96 @@ databaseChangeLog:
                   autoIncrement: true
 
               - column:
-                  name: processInstanceId
+                  name: PROCESS_INSTANCE_ID
                   type: varchar(50)
 
               - column:
-                  name: title
+                  name: TITLE
                   type: varchar(50)
 
               - column:
-                  name: initiator
+                  name: PROCESS_INSTANCE_STATUS
+                  type: varchar(100)
+                  
+              - column:
+                  name: ACTION_REQUESTED
                   type: varchar(100)
 
               - column:
-                  name: delegator
+                  name: INITIATOR
                   type: varchar(100)
 
               - column:
-                  name: group_
+                  name: DELEGATOR
+                  type: varchar(100)
+              
+              - column:
+                  name: GROUP_
+                  type: varchar(100)
+                  
+              - column:
+                  name: ROUTE_NODES
+                  type: array
+
+              - column:
+                  name: LAST_APPROVED_DATE
                   type: varchar(100)
 
               - column:
-                  name: lastApprovedDate
+                  name: CREATION_DATE
+                  type: varchar(100)
+                  
+  - changeSet:
+      id: 3
+      author: sa
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+
+              - column:
+                  name: PROCESS_INSTANCE_ID
+                  type: varchar(50)
+
+              - column:
+                  name: TITLE
+                  type: varchar(50)
+
+              - column:
+                  name: PROCESS_INSTANCE_STATUS
+                  type: varchar(100)
+                  
+              - column:
+                  name: ACTION_REQUESTED
                   type: varchar(100)
 
               - column:
-                  name: creationDate
+                  name: INITIATOR
                   type: varchar(100)
+
+              - column:
+                  name: DELEGATOR
+                  type: varchar(100)
+              
+              - column:
+                  name: GROUP_
+                  type: varchar(100)
+                  
+              - column:
+                  name: ROUTE_NODES
+                  type: array
+
+              - column:
+                  name: LAST_APPROVED_DATE
+                  type: varchar(100)
+
+              - column:
+                  name: CREATION_DATE
+                  type: varchar(100)        	
+            encoding: UTF-8
+            file: /Users/stephenpaul/action-list-api/src/main/resources/db/changelog/data.csv
+            tableName: ACTION_REQUEST
+              

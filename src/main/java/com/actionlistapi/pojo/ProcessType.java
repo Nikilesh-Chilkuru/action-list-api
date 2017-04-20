@@ -1,9 +1,8 @@
 package com.actionlistapi.pojo;
 
-public class ProcessType {
+public class ProcessType{
 
 	private String name;
-	private String label;
 	public String getName() {
 		return name;
 	}
@@ -11,10 +10,6 @@ public class ProcessType {
 		this.name = name;
 	}
 	public String getLabel() {
-		return label;
+		return "xx";
 	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	
 }
