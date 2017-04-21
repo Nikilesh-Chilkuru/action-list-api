@@ -3,11 +3,9 @@ package com.actionlistapi.pojo;
 public class ProcessInstanceStatus {
 
 	private String code;
-	private String label;
 	
-	public ProcessInstanceStatus(String code, String label) {
+	public ProcessInstanceStatus(String code) {
 		this.code = code;
-		this.label = label;
 	}
 	public String getCode() {
 		return code;
@@ -16,11 +14,20 @@ public class ProcessInstanceStatus {
 		this.code = code;
 	}
 	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	
-	
+		switch(getCode())
+		{
+		case "P":
+			return "Preroute";
+		case "R":
+			return "Enroute";
+		case "C":
+			return "Completed";
+		case "A":
+			return "Aborted";
+		case "S":
+			return "Suspended";
+		default:
+			return "No Mapping Found";
+		}
+	}	
 }

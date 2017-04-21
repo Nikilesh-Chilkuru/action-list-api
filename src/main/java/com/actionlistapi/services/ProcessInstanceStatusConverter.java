@@ -7,19 +7,16 @@ import javax.persistence.Converter;
 @Converter
 public class ProcessInstanceStatusConverter implements AttributeConverter<ProcessInstanceStatus, String>{
 	
-	 private static final String SEPARATOR = "|";
-
 	@Override
 	public String convertToDatabaseColumn(ProcessInstanceStatus pis) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(pis.getCode()).append(SEPARATOR).append(pis.getLabel());
+		sb.append(pis.getCode());
 		return sb.toString();
 	}
 
 	@Override
 	public ProcessInstanceStatus convertToEntityAttribute(String str) {
-		String[] s = str.split(SEPARATOR);
-		return new ProcessInstanceStatus(s[0],s[1]);
+		return new ProcessInstanceStatus(str);
 	}
 
 }

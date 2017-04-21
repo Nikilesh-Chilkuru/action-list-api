@@ -14,6 +14,7 @@ import com.actionlistapi.pojo.ProcessType;
 import com.actionlistapi.pojo._Links;
 import com.actionlistapi.services.ActionRequestedConverter;
 import com.actionlistapi.services.ProcessInstanceStatusConverter;
+import com.actionlistapi.services.RouteNodeConverter;
 
 @Entity
 public class ActionRequest {
@@ -41,6 +42,7 @@ public class ActionRequest {
 	
 	private String group_;
 	
+	@Convert(converter = RouteNodeConverter.class)
 	private String[] routeNodes;
 	
 	private String lastApprovedDate;
@@ -112,11 +114,11 @@ public class ActionRequest {
 	public void setGroup(String group_) {
 		this.group_ = group_;
 	}
-
+	
 	public String[] getRouteNodes() {
 		return routeNodes;
 	}
-
+	
 	public void setRouteNodes(String[] routeNodes) {
 		this.routeNodes = routeNodes;
 	}
