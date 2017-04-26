@@ -265,19 +265,18 @@ databaseChangeLog:
               - column:
                   name: CREATION_DATE
                   type: STRING
+            file: classpath:/db/changelog/action_requests.csv
+            tableName: ACTION_REQUEST  
       
   - changeSet:
-      id: 12
+      id: "Creating sequence and table for colors"
       author: sa
       changes:
         - createSequence:
-            sequenceName: color_id_seq
+            sequenceName: colors_id_seq
             incrementBy: 1
             startValue: 1
  
-  - changeSet:
-      id: 13
-      author: sa
       changes:
         - createTable:
             tableName: COLORS
@@ -294,6 +293,7 @@ databaseChangeLog:
               - column:    
                   name: A
                   type: varchar(50)
+                  
               - column:    
                   name: C
                   type: varchar(50)
@@ -301,6 +301,94 @@ databaseChangeLog:
               - column:    
                   name: P
                   type: varchar(50)
+                  
               - column:    
                   name: R
                   type: varchar(50)
+                  
+  - changeSet:
+      id: "Creating sequence and table for preferences"
+      author: sa
+      changes:
+        - createSequence:
+            sequenceName: pref_id_seq
+            incrementBy: 1
+            startValue: 1
+ 
+      changes:
+        - createTable:
+            tableName: PREFERENCES
+            columns:
+              - column:
+                  name: ID
+                  type: long
+                  autoIncrement: true
+                  
+              - column:    
+                  name: COLORS_ID
+                  type: varchar(50)
+
+  -  changeSet:
+      id: "addForeignKeyConstraint for preferences and colors tables"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: COLORS_ID
+            baseTableName: PREFERENCES
+            constraintName: fk_preferences_colors
+            referencedColumnNames: ID
+            referencedTableName: COLORS     
+            
+                  
+  - changeSet:
+      id: "loadData for Colors table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+
+              - column:    
+                  name: S
+                  type: STRING
+                  
+              - column:    
+                  name: A
+                  type: STRING
+                  
+              - column:    
+                  name: C
+                  type: STRING
+                  
+              - column:    
+                  name: P
+                  type: STRING
+                  
+              - column:    
+                  name: R
+                  type: STRING
+                  
+            file: classpath:/db/changelog/colors.csv
+            tableName: COLORS  
+            
+  - changeSet:
+      id: "loadData for preferences table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+
+              - column:    
+                  name: COLORS_ID
+                  type: STRING
+                  
+            file: classpath:/db/changelog/preferences.csv
+            tableName: PREFERENCES  
+                                               

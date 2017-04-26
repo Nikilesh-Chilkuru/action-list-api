@@ -1,9 +1,19 @@
 package com.actionlistapi.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Colors {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="colors_id_seq")
+	@SequenceGenerator(name="colors_id_seq",sequenceName="colors_id_seq",allocationSize=1)
+	private long id;
+	
 	String S;
 	
 	String P;
@@ -48,5 +58,17 @@ public class Colors {
 
 	public void setS(String s) {
 		S = s;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getS() {
+		return S;
 	}
 }
