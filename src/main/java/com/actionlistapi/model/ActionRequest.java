@@ -50,7 +50,6 @@ public class ActionRequest {
 	
 	private String creationDate;
 	
-//	private _Links _links;
 
 	public String getProcessInstanceId() {
 		return processInstanceId;
@@ -139,12 +138,21 @@ public class ActionRequest {
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
+	
+	public long getId() {
+		return id;
+	}
 
-//	public _Links get_links() {
-//		return _links;
-//	}
-//
-//	public void set_links(_Links _links) {
-//		this._links = _links;
-//	}	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getGroup_() {
+		return group_;
+	}
+
+	public void setGroup_(String group_) {
+		this.group_ = group_;
+	}
+
 }
