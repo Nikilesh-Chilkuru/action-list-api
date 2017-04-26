@@ -264,7 +264,43 @@ databaseChangeLog:
 
               - column:
                   name: CREATION_DATE
-                  type: STRING          
-            encoding: UTF-8
-            file: classpath:/db/changelog/action_requests.csv
-            tableName: ACTION_REQUEST                               
+                  type: STRING
+      
+  - changeSet:
+      id: 12
+      author: sa
+      changes:
+        - createSequence:
+            sequenceName: color_id_seq
+            incrementBy: 1
+            startValue: 1
+ 
+  - changeSet:
+      id: 13
+      author: sa
+      changes:
+        - createTable:
+            tableName: COLORS
+            columns:
+              - column:
+                  name: ID
+                  type: long
+                  autoIncrement: true
+                  
+              - column:    
+                  name: S
+                  type: varchar(50)
+                  
+              - column:    
+                  name: A
+                  type: varchar(50)
+              - column:    
+                  name: C
+                  type: varchar(50)
+                  
+              - column:    
+                  name: P
+                  type: varchar(50)
+              - column:    
+                  name: R
+                  type: varchar(50)
