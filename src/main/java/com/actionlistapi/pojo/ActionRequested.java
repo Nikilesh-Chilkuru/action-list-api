@@ -16,16 +16,14 @@ public class ActionRequested {
 	public String getLabel() {
 		switch(getCode())
 		{
-		case "P":
-			return "Preroute";
-		case "R":
-			return "Enroute";
-		case "C":
-			return "Completed";
+		case "K":
+			return "Acknowledge";
 		case "A":
-			return "Aborted";
-		case "S":
-			return "Suspended";
+			return "Aprrove";
+		case "F":
+			return "Clear FYI";
+		case "R":
+			return "Route";
 		default:
 			return "No Mapping Found";
 		}

@@ -1,17 +1,17 @@
 package com.actionlistapi.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Transient;
 
 import com.actionlistapi.pojo.ActionRequested;
 import com.actionlistapi.pojo.ProcessInstanceStatus;
-import com.actionlistapi.pojo.ProcessType;
-import com.actionlistapi.pojo._Links;
 import com.actionlistapi.services.ActionRequestedConverter;
 import com.actionlistapi.services.ProcessInstanceStatusConverter;
 import com.actionlistapi.services.RouteNodeConverter;
@@ -26,7 +26,8 @@ public class ActionRequest {
 	
 	private String processInstanceId;
 	
-//	private ProcessType processType;
+	@ManyToOne
+	private ProcessType processType;
 	
 	private String title;
 	
@@ -43,7 +44,7 @@ public class ActionRequest {
 	private String group_;
 	
 	@Convert(converter = RouteNodeConverter.class)
-	private String[] routeNodes;
+	private ArrayList<String> routeNodes;
 	
 	private String lastApprovedDate;
 	
@@ -59,13 +60,13 @@ public class ActionRequest {
 		this.processInstanceId = processInstanceId;
 	}
 
-//	public ProcessType getProcessType() {
-//		return processType;
-//	}
-//
-//	public void setProcessType(ProcessType processType) {
-//		this.processType = processType;
-//	}
+	public ProcessType getProcessType() {
+		return processType;
+	}
+
+	public void setProcessType(ProcessType processType) {
+		this.processType = processType;
+	}
 
 	public String getTitle() {
 		return title;
@@ -114,12 +115,12 @@ public class ActionRequest {
 	public void setGroup(String group_) {
 		this.group_ = group_;
 	}
-	
-	public String[] getRouteNodes() {
+
+	public ArrayList<String> getRouteNodes() {
 		return routeNodes;
 	}
-	
-	public void setRouteNodes(String[] routeNodes) {
+
+	public void setRouteNodes(ArrayList<String> routeNodes) {
 		this.routeNodes = routeNodes;
 	}
 
