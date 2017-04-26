@@ -1,24 +1,14 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: sa
-      changes:
-        - createSequence:
-            sequenceName: id_seq
-            incrementBy: 1
-            startValue: 1
             
   - changeSet:
-      id: 2
+      id: "create sequence and table for process type"
       author: sa
       changes:
         - createSequence:
             sequenceName: proc_type_id_seq
             incrementBy: 1
-            startValue: 1          
-  - changeSet:
-      id: 3
-      author: sa
+            startValue: 1     
+               
       changes:
         - createTable:
             tableName: PROCESS_TYPE
@@ -27,6 +17,9 @@ databaseChangeLog:
                   name: ID
                   type: long
                   autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
 
               - column:
                   name: NAME
@@ -35,18 +28,16 @@ databaseChangeLog:
               - column:
                   name: LABEL
                   type: varchar(50)
-  -  changeSet:
-      id: 4
+                  
+  - changeSet:
+      id: "create sequence and table for action request"
       author: sa
       changes:
-        - addPrimaryKey:
-            columnNames: ID
-            constraintName: pk_proc_type_id
-            tableName: PROCESS_TYPE
- 
-  - changeSet:
-      id: 5
-      author: sa
+        - createSequence:
+            sequenceName: id_seq
+            incrementBy: 1
+            startValue: 1
+            
       changes:
         - createTable:
             tableName: ACTION_REQUEST
@@ -55,6 +46,9 @@ databaseChangeLog:
                   name: ID
                   type: long
                   autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
 
               - column:
                   name: PROCESS_INSTANCE_ID
@@ -99,18 +93,9 @@ databaseChangeLog:
               - column:
                   name: CREATION_DATE
                   type: varchar(100)
-                  
-  -  changeSet:
-      id: 6
-      author: sa
-      changes:
-        - addPrimaryKey:
-            columnNames: ID
-            constraintName: pk_check_req_id
-            tableName: ACTION_REQUEST
 
   -  changeSet:
-      id: 7
+      id: "adding ForeignKeyConstraint for action_request and process_type"
       author: sa
       changes:
         - addForeignKeyConstraint:
@@ -121,7 +106,7 @@ databaseChangeLog:
             referencedTableName: PROCESS_TYPE                  
                   
   - changeSet:
-      id: 8
+      id: "inserting data into process type table"
       author: sa
       changes:
         - insert:
@@ -135,10 +120,10 @@ databaseChangeLog:
               - column:
                   name: LABEL
                   value: Hello, World!
-                  
+
   - changeSet:
-      id: 9
-      author: sa
+      id: "inserting data into action request table"
+      author: sa             
       changes:
         - insert:
             tableName: ACTION_REQUEST
@@ -189,7 +174,7 @@ databaseChangeLog:
                   value: 2017-02-03T12:00:00
                   
   - changeSet:
-      id: 10
+      id: "load data into process type table"
       author: sa
       changes:
         - loadData:
@@ -209,11 +194,10 @@ databaseChangeLog:
                   type: STRING           
             file: classpath:/db/changelog/process_types.csv
             tableName: PROCESS_TYPE           
-                    
-              
+
   - changeSet:
-      id: 11
-      author: sa
+      id: "load data into action request table"
+      author: sa                    
       changes:
         - loadData:
             columns:
@@ -267,4 +251,5 @@ databaseChangeLog:
                   type: STRING          
             encoding: UTF-8
             file: classpath:/db/changelog/action_requests.csv
-            tableName: ACTION_REQUEST                               
+            tableName: ACTION_REQUEST      
+                                     
