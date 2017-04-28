@@ -7,11 +7,10 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import com.actionlistapi.model.ActionRequest;
 
 @Configuration
-public class RepositoryConfig extends RepositoryRestConfigurerAdapter  {
-	
-	@Override
-    public void configureRepositoryRestConfiguration(
-            RepositoryRestConfiguration config) {
+public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
+
+    @Override
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(ActionRequest.class);
     }
 }

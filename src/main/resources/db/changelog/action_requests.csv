@@ -1,6 +1,6 @@
-PROCESS_INSTANCE_ID,TITLE,PROCESS_TYPE_ID,PROCESS_INSTANCE_STATUS,ACTION_REQUESTED,INITIATOR,DELEGATOR,GROUP_,ROUTE_NODES,LAST_APPROVED_DATE,CREATION_DATE
-23456,"Hello World!",2,R,A,Francis Fernandez,Eric Westfall,ESI Developers,"Manager Approval|excellent",2017-02-03T11:30:00,2017-02-03T12:00:00
-23456,"Hello World!",3,R,A,Francis Fernandez,Eric Westfall,ESI Developers,"Manager Approval|excellent",2017-02-03T11:30:00,2017-02-03T12:00:00
-23456,"Hello World!",1,R,A,Francis Fernandez,Eric Westfall,ESI Developers,"Manager Approval|excellent",2017-02-03T11:30:00,2017-02-03T12:00:00
-23456,"Hello World!",3,R,A,Francis Fernandez,Eric Westfall,ESI Developers,"Manager Approval|excellent",2017-02-03T11:30:00,2017-02-03T12:00:00
-23456,"Hello World!",4,R,A,Francis Fernandez,Eric Westfall,ESI Developers,"Manager Approval|excellent",2017-02-03T11:30:00,2017-02-03T12:00:00
+PROCESS_INSTANCE_ID,USERNAME,TITLE,PROCESS_TYPE_ID,PROCESS_INSTANCE_STATUS,ACTION_REQUESTED,INITIATOR,DELEGATOR,GROUP_,ROUTE_NODES,LAST_APPROVED_DATE,CREATION_DATE
+{SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='ABC'},sharmask,Hello World!,{SELECT ID FROM PROCESS_TYPE WHERE NAME='Timesheet'},R,A,Francis Fernandez,Eric Westfall,ESI Developers,Manager Approval|excellent,2017-02-03T11:30:00,2017-02-03T12:00:00
+{SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='GHI'},fraferna,Hello World!,{SELECT ID FROM PROCESS_TYPE WHERE NAME='Timesheet'},R,A,Francis Fernandez,Eric Westfall,ESI Developers,Manager Approval|excellent,2017-02-03T11:30:00,2017-02-03T12:00:00
+{SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='JKL'},sharmask,Hello World!,{SELECT ID FROM PROCESS_TYPE WHERE NAME='Timesheet'},R,A,Francis Fernandez,Eric Westfall,ESI Developers,Manager Approval|excellent,2017-02-03T11:30:00,2017-02-03T12:00:00
+{SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='MNO'},fraferna,Hello World!,{SELECT ID FROM PROCESS_TYPE WHERE NAME='Timesheet'},R,A,Francis Fernandez,Eric Westfall,ESI Developers,Manager Approval|excellent,2017-02-03T11:30:00,2017-02-03T12:00:00
+{SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='DEF'},sharmask,Hello World!,{SELECT ID FROM PROCESS_TYPE WHERE NAME='Timesheet'},R,A,Francis Fernandez,Eric Westfall,ESI Developers,Manager Approval|excellent,2017-02-03T11:30:00,2017-02-03T12:00:00
