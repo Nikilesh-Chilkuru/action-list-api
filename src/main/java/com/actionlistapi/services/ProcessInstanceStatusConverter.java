@@ -7,16 +7,15 @@ import javax.persistence.Converter;
 @Converter
 public class ProcessInstanceStatusConverter implements AttributeConverter<ProcessInstanceStatus, String>{
 	
-	@Override
-	public String convertToDatabaseColumn(ProcessInstanceStatus pis) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(pis.getCode());
-		return sb.toString();
-	}
+    @Override
+    public String convertToDatabaseColumn(ProcessInstanceStatus pis) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(pis.getCode());
+        return sb.toString();
+    }
 
-	@Override
-	public ProcessInstanceStatus convertToEntityAttribute(String str) {
-		return new ProcessInstanceStatus(str);
-	}
-
+    @Override
+    public ProcessInstanceStatus convertToEntityAttribute(String str) {
+        return new ProcessInstanceStatus(str);
+    }
 }
