@@ -19,7 +19,7 @@ public class ActionRequested {
 		case "K":
 			return "Acknowledge";
 		case "A":
-			return "Aprrove";
+			return "Approve";
 		case "F":
 			return "Clear FYI";
 		case "R":
