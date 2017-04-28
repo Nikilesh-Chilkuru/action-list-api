@@ -24,82 +24,85 @@ public class ActionRequest {
 	@GenericGenerator(name="uuid",strategy = "uuid")
 	private String id;
 	
-	private String processInstanceId;
+    private String processInstanceId;
 	
 	private String username;
 	
 	@OneToOne
 	private ProcessType processType;
 	
-	private String title;
+    private String title;
 	
-	@Convert(converter = ProcessInstanceStatusConverter.class)
-	private ProcessInstanceStatus processInstanceStatus;
+    @Convert(converter = ProcessInstanceStatusConverter.class)
+    private ProcessInstanceStatus processInstanceStatus;
+
+    @Convert(converter = ActionRequestedConverter.class)
+    private ActionRequested actionRequested;
 	
-	@Convert(converter = ActionRequestedConverter.class)
-	private ActionRequested actionRequested;
+    private String initiator;
+
+    private String delegator;
 	
-	private String initiator;
-
-	private String delegator;
+    private String group_;
 	
-	private String group_;
+    @Convert(converter = RouteNodeConverter.class)
+    private ArrayList<String> routeNodes;
 	
-	@Convert(converter = RouteNodeConverter.class)
-	private ArrayList<String> routeNodes;
+    private String lastApprovedDate;
 	
-	private String lastApprovedDate;
+    private String creationDate;
 	
-	private String creationDate;
-	
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
 
-	public String getProcessInstanceId() {
-		return processInstanceId;
-	}
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
 
-	public void setProcessInstanceId(String processInstanceId) {
-		this.processInstanceId = processInstanceId;
-	}
+    public ProcessType getProcessType() {
+        return processType;
+    }
 
-	public ProcessType getProcessType() {
-		return processType;
-	}
+    public void setProcessType(ProcessType processType) {
+        this.processType = processType;
+    }
 
-	public void setProcessType(ProcessType processType) {
-		this.processType = processType;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public ProcessInstanceStatus getProcessInstanceStatus() {
+        return processInstanceStatus;
+    }
 
-	public ProcessInstanceStatus getProcessInstanceStatus() {
-		return processInstanceStatus;
-	}
+    public void setProcessInstanceStatus(ProcessInstanceStatus processInstanceStatus) {
+        this.processInstanceStatus = processInstanceStatus;
+    }
 
-	public void setProcessInstanceStatus(ProcessInstanceStatus processInstanceStatus) {
-		this.processInstanceStatus = processInstanceStatus;
-	}
+    public ActionRequested getActionRequested() {
+        return actionRequested;
+    }
 
-	public ActionRequested getActionRequested() {
-		return actionRequested;
-	}
+    public void setActionRequested(ActionRequested actionRequested) {
+        this.actionRequested = actionRequested;
+    }
 
-	public void setActionRequested(ActionRequested actionRequested) {
-		this.actionRequested = actionRequested;
-	}
+    public String getInitiator() {
+        return initiator;
+    }
 
-	public String getInitiator() {
-		return initiator;
-	}
+    public void setInitiator(String initiator) {
+        this.initiator = initiator;
+    }
 
-	public void setInitiator(String initiator) {
-		this.initiator = initiator;
-	}
+    public String getDelegator() {
+        return delegator;
+    }
 	
 	public String getUsername() {
 		return username;
@@ -109,45 +112,37 @@ public class ActionRequest {
 		this.username = username;
 	}
 
-	public String getDelegator() {
-		return delegator;
-	}
+    public String getGroup() {
+        return group_;
+    }
 
-	public void setDelegator(String delegator) {
-		this.delegator = delegator;
-	}
+    public void setGroup(String group_) {
+        this.group_ = group_;
+    }
 
-	public String getGroup() {
-		return group_;
-	}
+    public ArrayList<String> getRouteNodes() {
+        return routeNodes;
+    }
 
-	public void setGroup(String group_) {
-		this.group_ = group_;
-	}
+    public void setRouteNodes(ArrayList<String> routeNodes) {
+        this.routeNodes = routeNodes;
+    }
 
-	public ArrayList<String> getRouteNodes() {
-		return routeNodes;
-	}
+    public String getLastApprovedDate() {
+        return lastApprovedDate;
+    }
 
-	public void setRouteNodes(ArrayList<String> routeNodes) {
-		this.routeNodes = routeNodes;
-	}
+    public void setLastApprovedDate(String lastApprovedDate) {
+        this.lastApprovedDate = lastApprovedDate;
+    }
 
-	public String getLastApprovedDate() {
-		return lastApprovedDate;
-	}
+    public String getCreationDate() {
+        return creationDate;
+    }
 
-	public void setLastApprovedDate(String lastApprovedDate) {
-		this.lastApprovedDate = lastApprovedDate;
-	}
-
-	public String getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 	
 	public String getId() {
 		return id;

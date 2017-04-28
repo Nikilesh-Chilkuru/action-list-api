@@ -9,8 +9,8 @@ import com.actionlistapi.model.ActionRequest;
 @Configuration
 public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
 
-	@Override
-	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(ActionRequest.class);
-	}
+    @Override
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.exposeIdsFor(ActionRequest.class);
+    }
 }
