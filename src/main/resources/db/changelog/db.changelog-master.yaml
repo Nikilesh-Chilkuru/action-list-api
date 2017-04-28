@@ -1,4 +1,9 @@
 databaseChangeLog:
+  - property:
+      name: uuid
+      value: random_uuid()
+      dbms: h2   
+
   - changeSet:
       id: 1
       author: sa
@@ -269,22 +274,19 @@ databaseChangeLog:
             tableName: ACTION_REQUEST  
       
   - changeSet:
-      id: "Creating sequence and table for colors"
+      id: "Creating table for colors"
       author: sa
-      changes:
-        - createSequence:
-            sequenceName: colors_id_seq
-            incrementBy: 1
-            startValue: 1
- 
       changes:
         - createTable:
             tableName: COLORS
             columns:
               - column:
                   name: ID
-                  type: long
-                  autoIncrement: true
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
                   
               - column:    
                   name: S
@@ -307,23 +309,25 @@ databaseChangeLog:
                   type: varchar(50)
                   
   - changeSet:
-      id: "Creating sequence and table for preferences"
+      id: "Creating table for preferences"
       author: sa
-      changes:
-        - createSequence:
-            sequenceName: pref_id_seq
-            incrementBy: 1
-            startValue: 1
- 
+      
       changes:
         - createTable:
             tableName: PREFERENCES
             columns:
               - column:
                   name: ID
-                  type: long
-                  autoIncrement: true
-                  
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              
+              - column:    
+                  name: USERNAME
+                  type: varchar(50)
+                    
               - column:    
                   name: COLORS_ID
                   type: varchar(50)
@@ -347,9 +351,8 @@ databaseChangeLog:
         - loadData:
             columns:
               - column:
-                  name: id
-                  type: long
-                  autoIncrement: true
+                  name: ID
+                  type: UUID
 
               - column:    
                   name: S
@@ -381,13 +384,16 @@ databaseChangeLog:
         - loadData:
             columns:
               - column:
-                  name: id
-                  type: long
-                  autoIncrement: true
+                  name: ID
+                  type: UUID
+                  
+              - column:    
+                  name: USERNAME
+                  type: STRING   
 
               - column:    
                   name: COLORS_ID
-                  type: STRING
+                  type: COMPUTED
                   
             file: classpath:/db/changelog/preferences.csv
             tableName: PREFERENCES  
