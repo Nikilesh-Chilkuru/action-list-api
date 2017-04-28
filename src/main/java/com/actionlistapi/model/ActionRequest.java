@@ -6,7 +6,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +19,7 @@ import com.actionlistapi.services.RouteNodeConverter;
 @Entity
 public class ActionRequest {
 	
-	@Id 
+	@Id
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name="uuid",strategy = "uuid")
 	private String id;
@@ -28,7 +28,7 @@ public class ActionRequest {
 	
 	private String username;
 	
-	@OneToOne
+	@ManyToOne
 	private ProcessType processType;
 	
     private String title;

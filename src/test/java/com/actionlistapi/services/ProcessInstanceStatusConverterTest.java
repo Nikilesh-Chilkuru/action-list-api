@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.actionlistapi.pojo.ProcessInstanceStatus;
 
 @RunWith(SpringRunner.class)
-public class ProcessInstanceStatusConverterSpec {
+public class ProcessInstanceStatusConverterTest {
 
 	ProcessInstanceStatusConverter processInstanceStatusConverter;
 	

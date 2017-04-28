@@ -11,14 +11,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.actionlistapi.pojo.ActionRequested;
 
 @RunWith(SpringRunner.class)
-public class ActionRequestedConverterSpec {
-	
+public class ActionRequestedConverterTest {
+
 	ActionRequestedConverter actionRequestedConverter;
-	
+
 	ActionRequested actionRequested;
-	
+
 	String fakeString;
-	
+
 	@Before
 	public void setUp() {
 		actionRequestedConverter = new ActionRequestedConverter();
@@ -28,16 +28,16 @@ public class ActionRequestedConverterSpec {
 
 	@Test
 	public void actionRequestedFieldAfterConvertingShouldHaveStringData() {
-		assertThat(actionRequestedConverter.convertToDatabaseColumn(actionRequested),instanceOf(String.class));		
+		assertThat(actionRequestedConverter.convertToDatabaseColumn(actionRequested), instanceOf(String.class));
 	}
-	
+
 	@Test
 	public void actionRequestedCodeLabelIsCorrect() {
-		assertEquals(actionRequested.getLabel(),"Approve");
+		assertEquals(actionRequested.getLabel(), "Approve");
 	}
-	
+
 	@Test
 	public void stringConvertingToActionRequestedEntityAttributeVerified() {
-		assertThat(actionRequestedConverter.convertToEntityAttribute(fakeString),instanceOf(ActionRequested.class));		
+		assertThat(actionRequestedConverter.convertToEntityAttribute(fakeString), instanceOf(ActionRequested.class));
 	}
-	}
+}
