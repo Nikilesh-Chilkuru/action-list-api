@@ -2,27 +2,27 @@ package com.actionlistapi.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class ProcessType {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "proc_type_id_seq")
-	@SequenceGenerator(name = "proc_type_id_seq", sequenceName = "proc_type_id_seq", allocationSize = 1)
-	private long id;
+	
+	@Id 
+	@GeneratedValue(generator="uuid")
+	@GenericGenerator(name="uuid",strategy = "uuid")
+	private String id;
 
 	private String name;
 
 	private String label;
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

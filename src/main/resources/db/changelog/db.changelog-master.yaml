@@ -1,22 +1,21 @@
 databaseChangeLog:
-            
-  - changeSet:
-      id: "create sequence and table for process type"
+
+  - property:
+      name: uuid
+      value: random_uuid()
+      dbms: h2      
+           
+  - changeSet: 
+      id: "create table for process type"
       author: sa
-      changes:
-        - createSequence:
-            sequenceName: proc_type_id_seq
-            incrementBy: 1
-            startValue: 1     
-               
       changes:
         - createTable:
             tableName: PROCESS_TYPE
             columns:
               - column:
                   name: ID
-                  type: long
-                  autoIncrement: true
+                  type: UUID
+                  defaultValueComputed: ${uuid}
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -28,31 +27,230 @@ databaseChangeLog:
               - column:
                   name: LABEL
                   type: varchar(50)
-                  
+ 
   - changeSet:
-      id: "create sequence and table for action request"
+      id: "inserting data into process type table"
       author: sa
       changes:
-        - createSequence:
-            sequenceName: id_seq
-            incrementBy: 1
-            startValue: 1
+        - insert:
+            tableName: PROCESS_TYPE
+            columns:
             
+              - column:
+                  name: ID
+                  valueComputed: ${uuid}
+
+              - column:
+                  name: NAME
+                  value: Hello
+
+              - column:
+                  name: LABEL
+                  value: World!
+                                    
+  - changeSet:
+      id: "load data into process type table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+                  
+              -  column:
+                  name: NAME
+                  type: STRING
+                  
+              -  column:
+                  name: LABEL
+                  type: STRING           
+            file: classpath:/db/changelog/process_types.csv
+            tableName: PROCESS_TYPE           
+
+  - changeSet:
+      id: "create table for process instance"
+      author: sa
+      changes:
+        - createTable:
+            tableName: PROCESS_INSTANCE
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: TITLE
+                  type: varchar(50)
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  type: varchar(50)
+                  
+              - column:
+                  name: INITIATOR
+                  type: varchar(100)
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  type: varchar(100)
+              
+              - column:
+                  name: CONTENT
+                  type: varchar(100)
+
+              - column:
+                  name: REFERENCE_ID
+                  type: varchar(100)
+                  
+              - column:
+                  name: STATUS
+                  type: varchar(100)
+
+              - column:
+                  name: CREATED
+                  type: varchar(100)
+
+              - column:
+                  name: LAST_UPDATED
+                  type: varchar(100)
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  type: varchar(100)
+                  
+  -  changeSet:
+      id: "adding ForeignKeyConstraint for process_instance and process_type"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: PROCESS_TYPE
+            baseTableName: PROCESS_INSTANCE
+            constraintName: fk_process_instance_process_type
+            referencedColumnNames: NAME
+            referencedTableName: PROCESS_TYPE  
+             
+  - changeSet:
+      id: "inserting data into process instance table"
+      author: sa             
+      changes:
+        - insert:
+            tableName: PROCESS_INSTANCE
+            columns:
+            
+              - column:
+                  name: TITLE
+                  value: Document Title Document Title
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  valueComputed: "(SELECT NAME FROM PROCESS_TYPE WHERE LABEL='World!')"
+                  
+              - column:
+                  name: INITIATOR
+                  value: fraferna
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  value: Fernandez, Francis Paul
+              
+              - column:
+                  name: CONTENT
+                  value: 
+
+              - column:
+                  name: REFERENCE_ID
+                  value: 456789123
+                  
+              - column:
+                  name: STATUS
+                  value: R
+
+              - column:
+                  name: CREATED
+                  value: 2017-02-01T23:58:37-05:00
+
+              - column:
+                  name: LAST_UPDATED
+                  value: 2017-02-01T23:58:44-05:00
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  value: ENROUTE     
+                  
+  - changeSet:
+      id: "load data into process instance table"
+      author: sa                    
+      changes:
+        - loadData:
+            columns:
+
+              - column:
+                  name: TITLE
+                  type: STRING
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  type: computed
+                  
+              - column:
+                  name: INITIATOR
+                  type: STRING
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  type: STRING
+              
+              - column:
+                  name: CONTENT
+                  type: STRING
+
+              - column:
+                  name: REFERENCE_ID
+                  type: STRING
+                  
+              - column:
+                  name: STATUS
+                  type: STRING
+
+              - column:
+                  name: CREATED
+                  type: STRING
+
+              - column:
+                  name: LAST_UPDATED
+                  type: STRING
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  value: ENROUTE     
+            encoding: UTF-8
+            file: classpath:/db/changelog/process_instances.csv
+            tableName: PROCESS_INSTANCE                                          
+            
+  - changeSet:
+      id: "create table for action request"
+      author: sa
       changes:
         - createTable:
             tableName: ACTION_REQUEST
             columns:
               - column:
                   name: ID
-                  type: long
-                  autoIncrement: true
+                  type: UUID
+                  defaultValueComputed: ${uuid}
                   constraints:
                     primaryKey: true
                     nullable: false
 
               - column:
                   name: PROCESS_INSTANCE_ID
-                  type: varchar(50)
+                  type: UUID
+              
+              - column:
+                  name: USERNAME
+                  type: varchar(50)    
 
               - column:
                   name: TITLE
@@ -60,7 +258,7 @@ databaseChangeLog:
                   
               - column:
                   name: PROCESS_TYPE_ID
-                  type: long
+                  type: UUID
 
               - column:
                   name: PROCESS_INSTANCE_STATUS
@@ -103,24 +301,19 @@ databaseChangeLog:
             baseTableName: ACTION_REQUEST
             constraintName: fk_action_request_process_type
             referencedColumnNames: ID
-            referencedTableName: PROCESS_TYPE                  
-                  
-  - changeSet:
-      id: "inserting data into process type table"
+            referencedTableName: PROCESS_TYPE  
+
+  -  changeSet:
+      id: "adding ForeignKeyConstraint for action_request and process_instance"
       author: sa
       changes:
-        - insert:
-            tableName: PROCESS_TYPE
-            columns:
-
-              - column:
-                  name: NAME
-                  value: 23456
-
-              - column:
-                  name: LABEL
-                  value: Hello, World!
-
+        - addForeignKeyConstraint:
+            baseColumnNames: PROCESS_INSTANCE_ID
+            baseTableName: ACTION_REQUEST
+            constraintName: fk_action_request_process_instance
+            referencedColumnNames: ID
+            referencedTableName: PROCESS_INSTANCE
+                         
   - changeSet:
       id: "inserting data into action request table"
       author: sa             
@@ -131,7 +324,11 @@ databaseChangeLog:
 
               - column:
                   name: PROCESS_INSTANCE_ID
-                  value: 23456
+                  valueComputed: "(SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='PQR')" 
+              
+              - column:
+                  name: USERNAME
+                  value: fraferna 
 
               - column:
                   name: TITLE
@@ -139,7 +336,7 @@ databaseChangeLog:
                   
               - column:
                   name: PROCESS_TYPE_ID
-                  value: 1
+                  valueComputed: "(SELECT ID FROM PROCESS_TYPE WHERE NAME='Hello')" 
 
               - column:
                   name: PROCESS_INSTANCE_STATUS
@@ -171,30 +368,8 @@ databaseChangeLog:
 
               - column:
                   name: CREATION_DATE
-                  value: 2017-02-03T12:00:00
-                  
-  - changeSet:
-      id: "load data into process type table"
-      author: sa
-      changes:
-        - loadData:
-            columns:
-            
-              -  column:
-                  name: id
-                  type: long
-                  autoIncrement: true
-                  
-              -  column:
-                  name: NAME
-                  type: STRING
-                  
-              -  column:
-                  name: LABEL
-                  type: STRING           
-            file: classpath:/db/changelog/process_types.csv
-            tableName: PROCESS_TYPE           
-
+                  value: 2017-02-03T12:00:00      
+              
   - changeSet:
       id: "load data into action request table"
       author: sa                    
@@ -202,13 +377,12 @@ databaseChangeLog:
         - loadData:
             columns:
               - column:
-                  name: id
-                  type: long
-                  autoIncrement: true
-
-              - column:
                   name: PROCESS_INSTANCE_ID
-                  type: STRING
+                  type: COMPUTED
+              
+              - column:
+                  name: USERNAME
+                  type: STRING     
 
               - column:
                   name: TITLE
@@ -216,7 +390,7 @@ databaseChangeLog:
                   
               - column:
                   name: PROCESS_TYPE_ID
-                  type: STRING
+                  type: COMPUTED
 
               - column:
                   name: PROCESS_INSTANCE_STATUS
@@ -251,5 +425,5 @@ databaseChangeLog:
                   type: STRING          
             encoding: UTF-8
             file: classpath:/db/changelog/action_requests.csv
-            tableName: ACTION_REQUEST      
-                                     
+            tableName: ACTION_REQUEST  
+                                                                                                                                                    

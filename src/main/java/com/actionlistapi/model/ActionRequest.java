@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.actionlistapi.pojo.ActionRequested;
 import com.actionlistapi.pojo.ProcessInstanceStatus;
@@ -19,14 +19,16 @@ import com.actionlistapi.services.RouteNodeConverter;
 @Entity
 public class ActionRequest {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="id_seq")
-	@SequenceGenerator(name="id_seq",sequenceName="id_seq",allocationSize=1)
-	private long id;
+	@Id 
+	@GeneratedValue(generator="uuid")
+	@GenericGenerator(name="uuid",strategy = "uuid")
+	private String id;
 	
 	private String processInstanceId;
 	
-	@ManyToOne
+	private String username;
+	
+	@OneToOne
 	private ProcessType processType;
 	
 	private String title;
@@ -98,6 +100,14 @@ public class ActionRequest {
 	public void setInitiator(String initiator) {
 		this.initiator = initiator;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getDelegator() {
 		return delegator;
@@ -139,20 +149,11 @@ public class ActionRequest {
 		this.creationDate = creationDate;
 	}
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getGroup_() {
-		return group_;
-	}
-
-	public void setGroup_(String group_) {
-		this.group_ = group_;
-	}
-
 }
