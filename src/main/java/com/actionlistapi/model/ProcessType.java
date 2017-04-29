@@ -8,23 +8,23 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class ProcessType {
-	
-	@Id 
-	@GeneratedValue(generator="uuid")
-	@GenericGenerator(name="uuid",strategy = "uuid")
-	private String id;
+
+    @Id 
+    @GeneratedValue(generator="uuid")
+    @GenericGenerator(name="uuid",strategy = "uuid")
+    private String id;
 
     private String name;
 
     private String label;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
