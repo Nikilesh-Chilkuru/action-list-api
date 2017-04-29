@@ -1,0 +1,5 @@
+USERNAME,COLORS_ID
+sharmask,{Select ID from COLORS WHERE S='red'}
+fraferna,{Select ID from COLORS WHERE S='slate'}
+pandeyh,{Select ID from COLORS WHERE S='green'}
+shremish,{Select ID from COLORS WHERE S='orange'}

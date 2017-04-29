@@ -27,7 +27,7 @@ databaseChangeLog:
               - column:
                   name: LABEL
                   type: varchar(50)
- 
+
   - changeSet:
       id: "inserting data into process type table"
       author: sa
@@ -422,8 +422,132 @@ databaseChangeLog:
 
               - column:
                   name: CREATION_DATE
-                  type: STRING          
-            encoding: UTF-8
+                  type: STRING
             file: classpath:/db/changelog/action_requests.csv
             tableName: ACTION_REQUEST  
-                                                                                                                                                    
+      
+  - changeSet:
+      id: "Creating table for colors"
+      author: sa
+      changes:
+        - createTable:
+            tableName: COLORS
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  
+              - column:    
+                  name: S
+                  type: varchar(50)
+                  
+              - column:    
+                  name: A
+                  type: varchar(50)
+                  
+              - column:    
+                  name: C
+                  type: varchar(50)
+                  
+              - column:    
+                  name: P
+                  type: varchar(50)
+                  
+              - column:    
+                  name: R
+                  type: varchar(50)
+                  
+  - changeSet:
+      id: "Creating table for preferences"
+      author: sa
+      
+      changes:
+        - createTable:
+            tableName: PREFERENCES
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              
+              - column:    
+                  name: USERNAME
+                  type: varchar(50)
+                    
+              - column:    
+                  name: COLORS_ID
+                  type: varchar(50)
+
+  -  changeSet:
+      id: "addForeignKeyConstraint for preferences and colors tables"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: COLORS_ID
+            baseTableName: PREFERENCES
+            constraintName: fk_preferences_colors
+            referencedColumnNames: ID
+            referencedTableName: COLORS     
+            
+                  
+  - changeSet:
+      id: "loadData for Colors table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+
+              - column:    
+                  name: S
+                  type: STRING
+                  
+              - column:    
+                  name: A
+                  type: STRING
+                  
+              - column:    
+                  name: C
+                  type: STRING
+                  
+              - column:    
+                  name: P
+                  type: STRING
+                  
+              - column:    
+                  name: R
+                  type: STRING
+                  
+            file: classpath:/db/changelog/colors.csv
+            tableName: COLORS  
+            
+  - changeSet:
+      id: "loadData for preferences table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  
+              - column:    
+                  name: USERNAME
+                  type: STRING   
+
+              - column:    
+                  name: COLORS_ID
+                  type: COMPUTED
+                  
+            file: classpath:/db/changelog/preferences.csv
+            tableName: PREFERENCES  
+            
