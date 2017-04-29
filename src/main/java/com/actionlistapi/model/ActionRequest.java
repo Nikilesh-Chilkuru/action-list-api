@@ -19,17 +19,17 @@ import com.actionlistapi.services.RouteNodeConverter;
 @Entity
 public class ActionRequest {
 	
-	@Id
-	@GeneratedValue(generator="uuid")
-	@GenericGenerator(name="uuid",strategy = "uuid")
-	private String id;
+    @Id
+    @GeneratedValue(generator="uuid")
+    @GenericGenerator(name="uuid",strategy = "uuid")
+    private String id;
 	
     private String processInstanceId;
 	
-	private String username;
+    private String username;
 	
-	@ManyToOne
-	private ProcessType processType;
+    @ManyToOne
+    private ProcessType processType;
 	
     private String title;
 	
@@ -104,13 +104,13 @@ public class ActionRequest {
         return delegator;
     }
 	
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getGroup() {
         return group_;
@@ -144,11 +144,11 @@ public class ActionRequest {
         this.creationDate = creationDate;
     }
 	
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 }
