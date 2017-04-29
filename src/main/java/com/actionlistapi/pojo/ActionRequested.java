@@ -1,5 +1,8 @@
 package com.actionlistapi.pojo;
 
+import lombok.Data;
+
+@Data
 public class ActionRequested {
 
     private String code;
@@ -7,12 +10,7 @@ public class ActionRequested {
     public ActionRequested(String code){
         this.code = code;
     }
-    public String getCode() {
-        return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
-    }
+
     public String getLabel() {
         switch(getCode())
         {

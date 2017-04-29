@@ -1,16 +1,13 @@
 package com.actionlistapi.pojo;
 
+import lombok.Data;
+
+@Data
 public class ProcessInstanceStatus {
 
     private String code;
 	
     public ProcessInstanceStatus(String code) {
-        this.code = code;
-    }
-    public String getCode() {
-        return code;
-    }
-    public void setCode(String code) {
         this.code = code;
     }
     public String getLabel() {
