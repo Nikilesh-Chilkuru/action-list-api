@@ -12,7 +12,7 @@ public class Colors {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="colors_id_seq")
 	@SequenceGenerator(name="colors_id_seq",sequenceName="colors_id_seq",allocationSize=1)
-	private long id;
+	private String id;
 	
 	String S;
 	
@@ -60,11 +60,11 @@ public class Colors {
 		S = s;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
