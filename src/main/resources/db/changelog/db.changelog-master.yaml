@@ -1,0 +1,553 @@
+databaseChangeLog:
+
+  - property:
+      name: uuid
+      value: random_uuid()
+      dbms: h2      
+           
+  - changeSet: 
+      id: "create table for process type"
+      author: sa
+      changes:
+        - createTable:
+            tableName: PROCESS_TYPE
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: NAME
+                  type: varchar(50)
+
+              - column:
+                  name: LABEL
+                  type: varchar(50)
+
+  - changeSet:
+      id: "inserting data into process type table"
+      author: sa
+      changes:
+        - insert:
+            tableName: PROCESS_TYPE
+            columns:
+            
+              - column:
+                  name: ID
+                  valueComputed: ${uuid}
+
+              - column:
+                  name: NAME
+                  value: Hello
+
+              - column:
+                  name: LABEL
+                  value: World!
+                                    
+  - changeSet:
+      id: "load data into process type table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+                  
+              -  column:
+                  name: NAME
+                  type: STRING
+                  
+              -  column:
+                  name: LABEL
+                  type: STRING           
+            file: classpath:/db/changelog/process_types.csv
+            tableName: PROCESS_TYPE           
+
+  - changeSet:
+      id: "create table for process instance"
+      author: sa
+      changes:
+        - createTable:
+            tableName: PROCESS_INSTANCE
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: TITLE
+                  type: varchar(50)
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  type: varchar(50)
+                  
+              - column:
+                  name: INITIATOR
+                  type: varchar(100)
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  type: varchar(100)
+              
+              - column:
+                  name: CONTENT
+                  type: varchar(100)
+
+              - column:
+                  name: REFERENCE_ID
+                  type: varchar(100)
+                  
+              - column:
+                  name: STATUS
+                  type: varchar(100)
+
+              - column:
+                  name: CREATED
+                  type: varchar(100)
+
+              - column:
+                  name: LAST_UPDATED
+                  type: varchar(100)
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  type: varchar(100)
+                  
+  -  changeSet:
+      id: "adding ForeignKeyConstraint for process_instance and process_type"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: PROCESS_TYPE
+            baseTableName: PROCESS_INSTANCE
+            constraintName: fk_process_instance_process_type
+            referencedColumnNames: NAME
+            referencedTableName: PROCESS_TYPE  
+             
+  - changeSet:
+      id: "inserting data into process instance table"
+      author: sa             
+      changes:
+        - insert:
+            tableName: PROCESS_INSTANCE
+            columns:
+            
+              - column:
+                  name: TITLE
+                  value: Document Title Document Title
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  valueComputed: "(SELECT NAME FROM PROCESS_TYPE WHERE LABEL='World!')"
+                  
+              - column:
+                  name: INITIATOR
+                  value: fraferna
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  value: Fernandez, Francis Paul
+              
+              - column:
+                  name: CONTENT
+                  value: 
+
+              - column:
+                  name: REFERENCE_ID
+                  value: 456789123
+                  
+              - column:
+                  name: STATUS
+                  value: R
+
+              - column:
+                  name: CREATED
+                  value: 2017-02-01T23:58:37-05:00
+
+              - column:
+                  name: LAST_UPDATED
+                  value: 2017-02-01T23:58:44-05:00
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  value: ENROUTE     
+                  
+  - changeSet:
+      id: "load data into process instance table"
+      author: sa                    
+      changes:
+        - loadData:
+            columns:
+
+              - column:
+                  name: TITLE
+                  type: STRING
+                  
+              - column:
+                  name: PROCESS_TYPE
+                  type: computed
+                  
+              - column:
+                  name: INITIATOR
+                  type: STRING
+                  
+              - column:
+                  name: INITIATOR_DISPLAY_NAME
+                  type: STRING
+              
+              - column:
+                  name: CONTENT
+                  type: STRING
+
+              - column:
+                  name: REFERENCE_ID
+                  type: STRING
+                  
+              - column:
+                  name: STATUS
+                  type: STRING
+
+              - column:
+                  name: CREATED
+                  type: STRING
+
+              - column:
+                  name: LAST_UPDATED
+                  type: STRING
+              
+              - column:
+                  name: DISPLAY_STATUS
+                  value: ENROUTE     
+            encoding: UTF-8
+            file: classpath:/db/changelog/process_instances.csv
+            tableName: PROCESS_INSTANCE                                          
+            
+  - changeSet:
+      id: "create table for action request"
+      author: sa
+      changes:
+        - createTable:
+            tableName: ACTION_REQUEST
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: PROCESS_INSTANCE_ID
+                  type: UUID
+              
+              - column:
+                  name: USERNAME
+                  type: varchar(50)    
+
+              - column:
+                  name: TITLE
+                  type: varchar(50)
+                  
+              - column:
+                  name: PROCESS_TYPE_ID
+                  type: UUID
+
+              - column:
+                  name: PROCESS_INSTANCE_STATUS
+                  type: varchar(100)
+                  
+              - column:
+                  name: ACTION_REQUESTED
+                  type: varchar(100)
+
+              - column:
+                  name: INITIATOR
+                  type: varchar(100)
+
+              - column:
+                  name: DELEGATOR
+                  type: varchar(100)
+              
+              - column:
+                  name: GROUP_
+                  type: varchar(100)
+                  
+              - column:
+                  name: ROUTE_NODES
+                  type: varchar(100)
+
+              - column:
+                  name: LAST_APPROVED_DATE
+                  type: varchar(100)
+
+              - column:
+                  name: CREATION_DATE
+                  type: varchar(100)
+
+  -  changeSet:
+      id: "adding ForeignKeyConstraint for action_request and process_type"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: PROCESS_TYPE_ID
+            baseTableName: ACTION_REQUEST
+            constraintName: fk_action_request_process_type
+            referencedColumnNames: ID
+            referencedTableName: PROCESS_TYPE  
+
+  -  changeSet:
+      id: "adding ForeignKeyConstraint for action_request and process_instance"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: PROCESS_INSTANCE_ID
+            baseTableName: ACTION_REQUEST
+            constraintName: fk_action_request_process_instance
+            referencedColumnNames: ID
+            referencedTableName: PROCESS_INSTANCE
+                         
+  - changeSet:
+      id: "inserting data into action request table"
+      author: sa             
+      changes:
+        - insert:
+            tableName: ACTION_REQUEST
+            columns:
+
+              - column:
+                  name: PROCESS_INSTANCE_ID
+                  valueComputed: "(SELECT ID FROM PROCESS_INSTANCE WHERE TITLE='PQR')" 
+              
+              - column:
+                  name: USERNAME
+                  value: fraferna 
+
+              - column:
+                  name: TITLE
+                  value: Hello, World!
+                  
+              - column:
+                  name: PROCESS_TYPE_ID
+                  valueComputed: "(SELECT ID FROM PROCESS_TYPE WHERE NAME='Hello')" 
+
+              - column:
+                  name: PROCESS_INSTANCE_STATUS
+                  value: R
+                  
+              - column:
+                  name: ACTION_REQUESTED
+                  value: A
+
+              - column:
+                  name: INITIATOR
+                  value: Francis Fernandez
+
+              - column:
+                  name: DELEGATOR
+                  value: Eric Westfall
+              
+              - column:
+                  name: GROUP_
+                  value: ESI Developers
+                  
+              - column:
+                  name: ROUTE_NODES
+                  value: Manager Approval|Test
+
+              - column:
+                  name: LAST_APPROVED_DATE
+                  value: 2017-02-03T11:30:00
+
+              - column:
+                  name: CREATION_DATE
+                  value: 2017-02-03T12:00:00      
+              
+  - changeSet:
+      id: "load data into action request table"
+      author: sa                    
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: PROCESS_INSTANCE_ID
+                  type: COMPUTED
+              
+              - column:
+                  name: USERNAME
+                  type: STRING     
+
+              - column:
+                  name: TITLE
+                  type: STRING
+                  
+              - column:
+                  name: PROCESS_TYPE_ID
+                  type: COMPUTED
+
+              - column:
+                  name: PROCESS_INSTANCE_STATUS
+                  type: STRING
+                  
+              - column:
+                  name: ACTION_REQUESTED
+                  type: STRING
+
+              - column:
+                  name: INITIATOR
+                  type: STRING
+
+              - column:
+                  name: DELEGATOR
+                  type: STRING
+              
+              - column:
+                  name: GROUP_
+                  type: STRING
+                  
+              - column:
+                  name: ROUTE_NODES
+                  type: STRING
+
+              - column:
+                  name: LAST_APPROVED_DATE
+                  type: STRING
+
+              - column:
+                  name: CREATION_DATE
+                  type: STRING
+            file: classpath:/db/changelog/action_requests.csv
+            tableName: ACTION_REQUEST  
+      
+  - changeSet:
+      id: "Creating table for colors"
+      author: sa
+      changes:
+        - createTable:
+            tableName: COLORS
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  
+              - column:    
+                  name: S
+                  type: varchar(50)
+                  
+              - column:    
+                  name: A
+                  type: varchar(50)
+                  
+              - column:    
+                  name: C
+                  type: varchar(50)
+                  
+              - column:    
+                  name: P
+                  type: varchar(50)
+                  
+              - column:    
+                  name: R
+                  type: varchar(50)
+                  
+  - changeSet:
+      id: "Creating table for preferences"
+      author: sa
+      
+      changes:
+        - createTable:
+            tableName: PREFERENCES
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  defaultValueComputed: ${uuid}
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              
+              - column:    
+                  name: USERNAME
+                  type: varchar(50)
+                    
+              - column:    
+                  name: COLORS_ID
+                  type: varchar(50)
+
+  -  changeSet:
+      id: "addForeignKeyConstraint for preferences and colors tables"
+      author: sa
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: COLORS_ID
+            baseTableName: PREFERENCES
+            constraintName: fk_preferences_colors
+            referencedColumnNames: ID
+            referencedTableName: COLORS     
+            
+                  
+  - changeSet:
+      id: "loadData for Colors table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+
+              - column:    
+                  name: S
+                  type: STRING
+                  
+              - column:    
+                  name: A
+                  type: STRING
+                  
+              - column:    
+                  name: C
+                  type: STRING
+                  
+              - column:    
+                  name: P
+                  type: STRING
+                  
+              - column:    
+                  name: R
+                  type: STRING
+                  
+            file: classpath:/db/changelog/colors.csv
+            tableName: COLORS  
+            
+  - changeSet:
+      id: "loadData for preferences table"
+      author: sa
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: ID
+                  type: UUID
+                  
+              - column:    
+                  name: USERNAME
+                  type: STRING   
+
+              - column:    
+                  name: COLORS_ID
+                  type: COMPUTED
+                  
+            file: classpath:/db/changelog/preferences.csv
+            tableName: PREFERENCES  
+            
